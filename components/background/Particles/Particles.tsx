@@ -1,3 +1,7 @@
+/*
+	Installed from https://reactbits.dev/ts/tailwind/
+*/
+
 import React, { useEffect, useRef } from "react";
 import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
 
@@ -16,7 +20,7 @@ interface ParticlesProps {
   className?: string;
 }
 
-const defaultColors: string[] = ["#000000", "#000000", "#000000"];
+const defaultColors: string[] = ["#ffffff", "#ffffff", "#ffffff"];
 
 const hexToRgb = (hex: string): [number, number, number] => {
   hex = hex.replace(/^#/, "");
@@ -94,13 +98,13 @@ const Particles: React.FC<ParticlesProps> = ({
   particleSpread = 10,
   speed = 0.1,
   particleColors,
-  moveParticlesOnHover = true,
+  moveParticlesOnHover = false,
   particleHoverFactor = 1,
   alphaParticles = false,
   particleBaseSize = 100,
   sizeRandomness = 1,
   cameraDistance = 20,
-  disableRotation = true,
+  disableRotation = false,
   className,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -238,7 +242,7 @@ const Particles: React.FC<ParticlesProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute w-screen h-screen overflow-hidden${className}`}
+      className={`absolute w-screen h-screen overflow-hidden z-0 ${className}`}
     />
   );
 };

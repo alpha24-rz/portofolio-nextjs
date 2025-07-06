@@ -5,6 +5,7 @@ export interface GlassIconsItem {
   color: string;
   label: string;
   customClass?: string;
+  link?: string;
 }
 
 export interface GlassIconsProps {
@@ -43,6 +44,11 @@ const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
           className={`relative bg-transparent outline-none w-[4.5em] h-[4.5em] [perspective:24em] [transform-style:preserve-3d] [-webkit-tap-highlight-color:transparent] group ${
             item.customClass || ""
           }`}
+          onClick={() => {
+            if (item.link) {
+              window.open(item.link, "_blank");
+            }
+          }}
         >
           <span
             className="absolute top-0 left-0 w-full h-full rounded-[1.25em] block transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.83,0,0.17,1)] origin-[100%_100%] rotate-[15deg] group-hover:[transform:rotate(25deg)_translate3d(-0.5em,-0.5em,0.5em)]"
