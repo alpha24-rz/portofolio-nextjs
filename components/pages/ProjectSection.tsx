@@ -28,8 +28,10 @@ interface MasonryItem {
 const items = [
   {
     id: "1",
-    img: "",
+    img: "/ui-ux/image2.png",
     url: "#",
+    title: "#1 Of The Winter Blues",
+    description: "A collection of winter-themed UI/UX designs for a winter-themed website.",
     height: 250,
   },
   {
@@ -52,7 +54,7 @@ const items = [
   },
   {
     id: "5",
-    img: "",
+    img: "/ui-ux/image1.png",
     url: "#",
     height: 300,
   },
@@ -82,7 +84,7 @@ const items = [
   },
   {
     id: "10",
-    img: "/ui-ux/image1.png",
+    img: "",
     url: "#",
     height: 600,
   },

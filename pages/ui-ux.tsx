@@ -19,18 +19,6 @@ const UiUxProjectsPage: FC = () => {
         <div className='text-white text-4xl font-bold'>
           UI/UX Projects Page
         </div>
-
-        <div className='text-white text-4xl font-bold'>
-          UI/UX Projects Page
-        </div>
-        
-        <div className='text-white text-4xl font-bold'>
-          UI/UX Projects Page
-        </div>
-
-        <div className='text-white text-4xl font-bold'>
-          UI/UX Projects Page
-        </div>
       </div>
     </div>
   );

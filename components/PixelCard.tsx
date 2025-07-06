@@ -161,6 +161,7 @@ interface PixelCardProps {
   noFocus?: boolean;
   className?: string;
   children: React.ReactNode;
+  items: any[];
 }
 
 interface VariantConfig {
