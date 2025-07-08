@@ -60,7 +60,7 @@ const items = [
   },
   {
     id: "6",
-    img: "",
+    img: "/ui-ux/image6.png",
     url: "#",
     height: 450,
   },
