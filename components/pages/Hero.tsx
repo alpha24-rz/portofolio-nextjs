@@ -87,7 +87,7 @@ const Hero = ({ scrollToSection }: HeroProps) => {
                         <Button
                             size="lg"
                             className="bg-black hover:bg-gray-800 text-white hover:scale-105 transition-all duration-500 ease-out ease-in-out shadow-lg hover:shadow-xl group"
-                            onClick={() => window.open('/pdf/Muhammad Alfarizi-Universitas Negeri Makassar-resume cv.pdf', '_blank')}
+                            onClick={() => window.open('/pdf/Muhammad alfarizi_Universitas Negeri Makassar_CV.pdf', '_blank')}
                         >
                             <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" />
                             Unduh CV
