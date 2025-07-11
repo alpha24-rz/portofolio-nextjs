@@ -54,70 +54,10 @@ const items = [
   },
   {
     id: "5",
-    img: "/ui-ux/image1.png",
+    img: "/ui-ux/image6.png",
     url: "#",
     height: 300,
   },
-  {
-    id: "6",
-    img: "/ui-ux/image6.png",
-    url: "#",
-    height: 450,
-  },
-  {
-    id: "7",
-    img: "",
-    url: "#",
-    height: 380,
-  },
-  {
-    id: "8",
-    img: "",
-    url: "#",
-    height: 420,
-  },
-  {
-    id: "9",
-    img: "",
-    url: "#",
-    height: 280,
-  },
-  {
-    id: "10",
-    img: "",
-    url: "#",
-    height: 600,
-  },
-  {
-    id: "11",
-    img: "",
-    url: "#",
-    height: 320,
-  },
-  {
-    id: "12",
-    img: "",
-    url: "#",
-    height: 470,
-  },
-  {
-    id: "13",
-    img: "",
-    url: "#",
-    height: 390,
-  },
-  {
-    id: "14",
-    img: "",
-    url: "#",
-    height: 540,
-  },
-  {
-    id: "15",
-    img: "",
-    url: "#",
-    height: 310,
-  }
 ]
 
 
@@ -166,7 +106,7 @@ const ProjectSection = ({ projectFilter, setProjectFilter, filteredProjects, set
         {/* Conditionally Render Projects */}
         <div className={projectFilter === "design" ? "w-full" : "grid md:grid-cols-2 lg:grid-cols-3 gap-8"}>
           {projectFilter === "design" ? (
-            <div className="flex justify-center items-center w-full " style={{ height: '800px', position: 'relative' }}>
+            <div className="flex justify-center items-center w-full " style={{ height: '300px', position: 'relative' }}>
               <Masonry
                 items={items}
                 ease="power3.out"
