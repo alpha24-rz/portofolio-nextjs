@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon.png',
   },
+  verification: {
+    google: 'RH8JnRsrK7FUAVd677LagA-jZNzYy9ZFwcBXijQ3Qkk',
+  },
 }
 
 export default function RootLayout({

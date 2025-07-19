@@ -18,6 +18,7 @@ import BlogSection from "@/components/pages/BlogSection"
 import ContactSection from "@/components/pages/ContactSection"
 import Footer from "@/components/pages/Footer"
 import Image from "next/image"
+import Squares from "@/components/background/Squares/Squares"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
@@ -106,24 +107,24 @@ export default function Portfolio() {
       demo: "https://alpharizi.netlify.app/",
       details: "Website portfolio dengan design glassmorphism dan animasi yang smooth untuk showcase karya.",
     },
-    { 
-    id: 5,
-    title: "Sahabat Moms Web Platform UI Design",
-    category: "ui-ux",
-    description: "UI/UX design for a web platform dedicated to independent midwife services, focused on providing a seamless experience for pregnant women and families seeking reliable healthcare support.",
-    image: "/project/sahabatmoms-ui.png?height=200&width=300",
-    tech: ["Figma"],
-    github: "https://github.com/your-repo-link",
-    demo: "https://your-demo-link.com",
-    details: "Complete design for a web platform ‘Sahabat Moms’ offering independent midwife services. The design emphasizes user-friendly navigation, easy appointment booking, and access to valuable maternal and child health information, ensuring a smooth user flow for expectant mothers and families."
-  },
+    {
+      id: 5,
+      title: "Sahabat Moms Web Platform UI Design",
+      category: "ui-ux",
+      description: "UI/UX design for a web platform dedicated to independent midwife services, focused on providing a seamless experience for pregnant women and families seeking reliable healthcare support.",
+      image: "/project/sahabatmoms-ui.png?height=200&width=300",
+      tech: ["Figma"],
+      github: "https://github.com/your-repo-link",
+      demo: "https://your-demo-link.com",
+      details: "Complete design for a web platform ‘Sahabat Moms’ offering independent midwife services. The design emphasizes user-friendly navigation, easy appointment booking, and access to valuable maternal and child health information, ensuring a smooth user flow for expectant mothers and families."
+    },
   ]
 
   const filteredProjects =
     projectFilter === "all" ? projects : projects.filter((project) => project.category === projectFilter)
 
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-screen overflow-hidden relative">
       <Particles
         particleColors={['#000000', '#000000']}
         particleCount={1000}
