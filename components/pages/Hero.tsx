@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+"use client"
+import ClientMotion from "@/components/ClientMotion"
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Download, Eye, ArrowRight, ChevronDown, Sparkles } from "lucide-react";
@@ -24,12 +25,12 @@ const Hero = ({ scrollToSection }: HeroProps) => {
             </div>
 
             <div className="max-w-6xl mx-auto text-center relative z-10 pt-5">
-                <motion.div
+                <ClientMotion
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.2, ease: "easeOut" }}
                 >
-                    <motion.div
+                    <ClientMotion
                         className="mb-8"
                         whileHover={{ scale: 1.05 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -43,7 +44,7 @@ const Hero = ({ scrollToSection }: HeroProps) => {
                                 className="w-32 h-32 rounded-full mx-auto mb-6 shadow-2xl shadow-black/20 border-4 border-white/50 backdrop-blur-sm" />
                             <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white animate-pulse" />
                         </div>
-                    </motion.div>
+                    </ClientMotion>
                     <div className="flex items-center justify-center w-full">
                         <TrueFocus
                             sentence="Alpha Rizi"
@@ -81,7 +82,7 @@ const Hero = ({ scrollToSection }: HeroProps) => {
                         </ScrambledText>
                     </div>
 
-                    <motion.div
+                    <ClientMotion
                         className="flex flex-col sm:flex-row gap-4 justify-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -105,17 +106,17 @@ const Hero = ({ scrollToSection }: HeroProps) => {
                             Lihat Proyek
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Button>
-                    </motion.div>
-                </motion.div>
+                    </ClientMotion>
+                </ClientMotion>
 
-                <motion.div
+                <ClientMotion
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 1.2, ease: "easeOut" }}
                     className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
                 >
                     <ChevronDown className="h-6 w-6 animate-bounce text-gray-400" />
-                </motion.div>
+                </ClientMotion>
             </div>
         </section><div className="flex items-center justify-center w-full pt-5 overflow-hidden">
                 <ScrollVelocity

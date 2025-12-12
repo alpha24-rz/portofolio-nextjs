@@ -1,4 +1,5 @@
-import { motion } from "framer-motion"
+"use client"
+import ClientMotion from "@/components/ClientMotion"
 import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card"
 import { Input } from "../ui/input"
@@ -14,7 +15,7 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
     return (
         <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <motion.div
+          <ClientMotion
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
@@ -23,10 +24,10 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4">Hubungi Saya</h2>
             <div className="w-20 h-1 bg-black mx-auto"></div>
-          </motion.div>
+          </ClientMotion>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            <motion.div
+            <ClientMotion
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
@@ -81,9 +82,9 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
 
                 </CardContent>
               </Card>
-            </motion.div>
+            </ClientMotion>
 
-            <motion.div
+            <ClientMotion
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
@@ -94,7 +95,7 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
                 <CardContent className="p-6">
                   <h3 className="font-bold text-xl mb-4 text-black">Informasi Kontak</h3>
                   <div className="space-y-4">
-                    <motion.div
+                    <ClientMotion
                       className="flex items-center hover:translate-x-2 transition-transform duration-500 ease-out"
                       whileHover={{ scale: 1.05 }}
                     >
@@ -105,21 +106,21 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
                       >
                         alfakiddrock7@gmail.com
                       </a>
-                    </motion.div>
-                    <motion.div
+                    </ClientMotion>
+                    <ClientMotion
                       className="flex items-center hover:translate-x-2 transition-transform duration-500 ease-out"
                       whileHover={{ scale: 1.05 }}
                     >
                       <Phone className="h-5 w-5 text-black mr-3" />
                       <span className="text-gray-700">+62 858-2436-4689</span>
-                    </motion.div>
-                    <motion.div
+                    </ClientMotion>
+                    <ClientMotion
                       className="flex items-center hover:translate-x-2 transition-transform duration-500 ease-out"
                       whileHover={{ scale: 1.05 }}
                     >
                       <MapPin className="h-5 w-5 text-black mr-3" />
                       <span className="text-gray-700">Makassar, Indonesia</span>
-                    </motion.div>
+                    </ClientMotion>
                   </div>
                 </CardContent>
               </Card>
@@ -170,7 +171,7 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </ClientMotion>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+"use client"
+import ClientMotion from "@/components/ClientMotion"
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,7 +14,7 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
     return (
         <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-6xl mx-auto">
-          <motion.div
+          <ClientMotion
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
@@ -22,7 +23,7 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
           >
             <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4">Tentang Saya</h2>
             <div className="w-20 h-1 bg-black mx-auto"></div>
-          </motion.div>
+          </ClientMotion>
 
           <div className="flex items-center justify-center w-full">
             <ProfileCard
@@ -42,7 +43,7 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
 
 
           <div className="space-y-12">
-            <motion.div
+            <ClientMotion
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
@@ -133,9 +134,9 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
                   </Card>
                 </TabsContent>
               </Tabs>
-            </motion.div>
+              </ClientMotion>
 
-            <motion.div
+            <ClientMotion
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
@@ -150,7 +151,7 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
                 </CardHeader>
                 <CardContent>
                   <div className="relative overflow-hidden">
-                    <motion.div
+                    <ClientMotion
                       className="flex gap-8 items-center"
                       animate={{
                         x: [0, -1920],
@@ -178,14 +179,14 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
                         { name: "MongoDB", icon: "/svg/mongodb.svg" },
                         { name: "Figma", icon: "/svg/figma.svg" },
                       ].map((tech, index) => (
-                        <motion.div
+                        <ClientMotion
                           key={`first-${tech.name}`}
                           className="flex flex-col items-center justify-center min-w-[80px] h-20 bg-white/80 backdrop-blur-sm border border-black/10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
                           whileHover={{ y: -5 }}
                         >
                           <Image src={tech.icon} alt={tech.name} width={24} height={24} className="mb-1" />
                           <div className="text-xs font-medium text-black text-center">{tech.name}</div>
-                        </motion.div>
+                        </ClientMotion>
                       ))}
 
                       {/* Duplicate set for seamless loop */}
@@ -202,16 +203,16 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
                         { name: "MongoDB", icon: "/svg/mongodb.svg" },
                         { name: "Figma", icon: "/svg/figma.svg" },
                       ].map((tech, index) => (
-                        <motion.div
+                        <ClientMotion
                           key={`second-${tech.name}`}
                           className="flex flex-col items-center justify-center min-w-[80px] h-20 bg-white/80 backdrop-blur-sm border border-black/10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
                           whileHover={{ y: -5 }}
                         >
                           <Image src={tech.icon} alt={tech.name} width={24} height={24} className="mb-1" />
                           <div className="text-xs font-medium text-black text-center">{tech.name}</div>
-                        </motion.div>
+                        </ClientMotion>
                       ))}
-                    </motion.div>
+                    </ClientMotion>
 
                     {/* Gradient overlays for smooth edges */}
                     <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
@@ -219,7 +220,7 @@ const AboutSection = ({ scrollToSection }: AboutSectionProps) => {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </ClientMotion>
           </div>
         </div>
       </section>

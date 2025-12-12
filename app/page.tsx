@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useState, useEffect, useCallback } from "react"
 import {
   ExternalLink,
@@ -9,16 +10,16 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import Particles from "@/components/background/Particles/Particles"
-import Navbar from "@/components/pages/Navbar"
-import Hero from "@/components/pages/Hero"
-import AboutSection from "@/components/pages/AboutSection"
-import ProjectSection from "@/components/pages/ProjectSection"
-import BlogSection from "@/components/pages/BlogSection"
-import ContactSection from "@/components/pages/ContactSection"
-import Footer from "@/components/pages/Footer"
+const Particles = dynamic(() => import("@/components/background/Particles/Particles"), { ssr: false })
+const Navbar = dynamic(() => import("@/components/pages/Navbar"), { ssr: false })
+const Hero = dynamic(() => import("@/components/pages/Hero"), { ssr: false })
+const AboutSection = dynamic(() => import("@/components/pages/AboutSection"), { ssr: false })
+const ProjectSection = dynamic(() => import("@/components/pages/ProjectSection"), { ssr: false })
+const BlogSection = dynamic(() => import("@/components/pages/BlogSection"), { ssr: false })
+const ContactSection = dynamic(() => import("@/components/pages/ContactSection"), { ssr: false })
+const Footer = dynamic(() => import("@/components/pages/Footer"), { ssr: false })
 import Image from "next/image"
-import Squares from "@/components/background/Squares/Squares"
+const Squares = dynamic(() => import("@/components/Squares"), { ssr: false })
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
