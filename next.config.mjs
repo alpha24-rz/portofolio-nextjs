@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -11,7 +8,7 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
-  swcMinify: true,
+  reactStrictMode: true,
 }
 
 export default nextConfig
