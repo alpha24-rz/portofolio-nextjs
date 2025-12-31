@@ -1,6 +1,8 @@
+// app/admin/project/create/page.tsx
+
 "use client"
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,7 +10,15 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { ArrowLeft, Save, Image as ImageIcon, Link, Tag } from 'lucide-react'
+import { 
+  ArrowLeft, 
+  Save, 
+  Image as ImageIcon, 
+  Link, 
+  Tag, 
+  Upload, 
+  X 
+} from 'lucide-react'
 
 const categories = [
   { value: 'frontend', label: 'Frontend Development' },
@@ -39,16 +49,61 @@ export default function CreateProject() {
     featured: false,
     order: 0
   })
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string>('')
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const router = useRouter()
+
+
+  // Handle file selection
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    
+    // Validasi tipe file
+    if (!file.type.startsWith('image/')) {
+      setError('Please select an image file (JPG, PNG, GIF, etc.)')
+      return
+    }
+    
+    // Validasi ukuran file (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size should be less than 5MB')
+      return
+    }
+    
+    setImageFile(file)
+    setError('')
+    
+    // Create preview
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleRemoveImage = () => {
+    setImageFile(null)
+    setImagePreview('')
+    setFormData({...formData, image: ''})
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
     setSuccess('')
+    setUploadProgress(0)
 
     try {
       // Basic validation
@@ -61,11 +116,42 @@ export default function CreateProject() {
       if (!formData.details.trim()) {
         throw new Error('Project details are required')
       }
+      if (!formData.title.trim()) {
+        throw new Error('Project title is required')
+      }
+      if (!formData.description.trim()) {
+        throw new Error('Project description is required')
+      }
+
+      let imageUrl = formData.image
+      
+      // Jika ada file yang diupload
+      if (imageFile) {
+        const formDataToSend = new FormData()
+        formDataToSend.append('image', imageFile)
+        
+        // Upload gambar ke API
+        const uploadResponse = await fetch('/api/upload', {
+          method: 'POST',
+          body: formDataToSend
+        })
+        
+        if (!uploadResponse.ok) {
+          const errorData = await uploadResponse.json()
+          throw new Error(errorData.error || 'Failed to upload image')
+        }
+        
+        const uploadData = await uploadResponse.json()
+        imageUrl = uploadData.url
+        setUploadProgress(100)
+      }
 
       const projectData = {
         ...formData,
+        image: imageUrl,
         tech: formData.tech.split(',').map(t => t.trim()).filter(t => t.length > 0)
       }
+      
 
       const response = await fetch('/api/projects', {
         method: 'POST',
@@ -260,20 +346,81 @@ export default function CreateProject() {
                 </div>
               </div>
 
-              {/* URLs */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+              {/* BAGIAN GAMBAR YANG DIUBAH */}
+              <div className="space-y-4">
+                <Label>Project Image</Label>
+                
+                {/* Upload File Section */}
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageSelect}
+                    accept="image/*"
+                    className="hidden"
+                    id="file-upload"
+                  />
+                  
+                  {imagePreview ? (
+                    <div className="relative">
+                      <img 
+                        src={imagePreview} 
+                        alt="Preview" 
+                        className="mx-auto max-h-64 rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Selected: {imageFile?.name}
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <Upload className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                      <Label 
+                        htmlFor="file-upload" 
+                        className="cursor-pointer text-blue-600 hover:text-blue-700 font-medium"
+                      >
+                        Click to upload image
+                      </Label>
+                      <p className="text-sm text-gray-500 mt-2">
+                        PNG, JPG, GIF up to 5MB
+                      </p>
+                    </>
+                  )}
+                </div>
+                
+                {/* Progress Bar */}
+                {uploadProgress > 0 && uploadProgress < 100 && (
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div 
+                      className="bg-blue-600 h-2.5 rounded-full" 
+                      style={{ width: `${uploadProgress}%` }}
+                    ></div>
+                  </div>
+                )}
+                
+                {/* Atau Masukkan URL (Alternatif) */}
+                <div className="pt-4 border-t">
+                  <div className="flex items-center gap-2 mb-2">
                     <ImageIcon className="h-4 w-4 text-gray-400" />
-                    <Label htmlFor="image">Image URL</Label>
+                    <Label htmlFor="image-url">Or enter image URL</Label>
                   </div>
                   <Input
-                    id="image"
-                    placeholder="/project/image.png or https://..."
+                    id="image-url"
+                    placeholder="https://example.com/image.jpg"
                     value={formData.image}
                     onChange={(e) => setFormData({...formData, image: e.target.value})}
-                    disabled={loading}
+                    disabled={loading || !!imageFile}
                   />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Leave empty if uploading file above
+                  </p>
                 </div>
 
                 <div className="space-y-2">
