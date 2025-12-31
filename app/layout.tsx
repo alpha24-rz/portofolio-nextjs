@@ -50,7 +50,6 @@ export const metadata: Metadata = {
     title: 'Portofolio Web Alpharz',
     description: 'Koleksi karya terbaik Alpharz dalam pengembangan web dan desain digital',
     images: ['/og-image.jpg'],
-    images: ['/og-image.png'],
     creator: '@alpharz',
   },
   metadataBase: new URL('https://alpha-portofolio.vercel.app'),
