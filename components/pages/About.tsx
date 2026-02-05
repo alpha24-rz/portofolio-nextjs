@@ -89,7 +89,7 @@ const About = () => {
                         </Card>
                     </TabsContent>
 
-                    <TabsContent value="certifications" className="mt-4 text-sm">
+                    <TabsContent value="certifications" className="mt-4 text-xs">
                         <Card className="bg-white/80 backdrop-blur-md border border-black/10 shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out hover:scale-105 ">
                             <CardContent className="pt-6">
                                 <div className="space-y-4">
