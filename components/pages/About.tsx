@@ -4,10 +4,11 @@ import ProfileCard from "@/components/ProfileCard/ProfileCard"
 import { GraduationCap, Briefcase, Award } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 
+
 const About = () => {
     return (
 
-    <div className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-5" >
+        <div className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-5" >
             <div className="flex relative justify-center items-center  md:col-span-2 lg:col-span-2 lg:row-span-5">
                 <ProfileCard
                     name="M Alpha.Rizi"
@@ -88,8 +89,8 @@ const About = () => {
                         </Card>
                     </TabsContent>
 
-                    <TabsContent value="certifications" className="mt-4">
-                        <Card className="bg-white/80 backdrop-blur-md border border-black/10 shadow-lg hover:shadow-xl transition-all duration-500 ease-out hover:scale-105 ease-in-out">
+                    <TabsContent value="certifications" className="mt-4 text-sm">
+                        <Card className="bg-white/80 backdrop-blur-md border border-black/10 shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out hover:scale-105 ">
                             <CardContent className="pt-6">
                                 <div className="space-y-4">
                                     <div>
@@ -111,7 +112,7 @@ const About = () => {
                 </Tabs>
             </div>
 
-    </div>
+        </div>
     );
 };
 

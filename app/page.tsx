@@ -184,10 +184,11 @@ export default function Portfolio() {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading projects...</p>
+          <div className="relative mx-auto mb-4 h-12 w-12 loader pb-2"></div>
+          <p className="text-gray-600 pt-5">Loading projects...</p>
         </div>
       </div>
+
     )
   }
 
@@ -265,7 +266,7 @@ export default function Portfolio() {
                 </div>
                 <div className="flex gap-4">
                   <Button
-                    className="flex-1 bg-black hover:bg-gray-800 text-white hover:scale-105 transition-all duration-500 ease-out ease-in-out"
+                    className="flex-1 bg-black hover:bg-gray-800 text-white hover:scale-105 transition-all duration-500 ease-in-out"
                     onClick={() => window.open(selectedProject.github, '_blank')}
                   >
                     <Github className="mr-2 h-4 w-4" />
