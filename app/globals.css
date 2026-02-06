@@ -6,7 +6,6 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Sen', 'Josefin Sans', sans-serif;
   scroll-margin-bottom: hidden;
 }
 

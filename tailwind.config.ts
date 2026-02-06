@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+       fontFamily: {
+        logo: ['var(--font-logo)'],
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

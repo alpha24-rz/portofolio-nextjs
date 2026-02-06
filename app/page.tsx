@@ -27,7 +27,7 @@ interface Project {
   createdAt?: string;
 }
 
-const Particles = dynamic(() => import("@/components/background/Particles/Particles"), { ssr: false })
+// const Particles = dynamic(() => import("@/components/background/Particles/Particles"), { ssr: false })
 const Navbar = dynamic(() => import("@/components/pages/Navbar"), { ssr: false })
 const Hero = dynamic(() => import("@/components/pages/Hero"), { ssr: false })
 const AboutSection = dynamic(() => import("@/components/pages/AboutSection"), { ssr: false })
@@ -194,17 +194,6 @@ export default function Portfolio() {
 
   return (
     <div className="w-screen overflow-hidden relative">
-      <Particles
-        particleColors={['#000000', '#000000']}
-        particleCount={1000}
-        particleSpread={10}
-        speed={0.5}
-        particleBaseSize={300}
-        moveParticlesOnHover={false}
-        alphaParticles={true}
-        disableRotation={true}
-        className="absolute w-screen h-screen overflow-hidden z-0"
-      />
 
       {/* Navbar */}
       <Navbar

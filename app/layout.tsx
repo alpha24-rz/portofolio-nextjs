@@ -1,6 +1,18 @@
 import type { Metadata } from 'next'
 import SplashCursor from '@/components/SplashCursor'
 import './globals.css'
+import localFont from 'next/font/local'
+
+export const logoFont = localFont({
+  src: [
+    {
+      path: './fonts/space age.ttf',
+      weight: '400',
+    },
+  ],
+  variable: '--font-logo',
+})
+
 
 export const metadata: Metadata = {
   title: 'Portofolio Web Alpharz | Desain & Pengembangan Kreatif',
@@ -66,7 +78,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className='overflow-x-hidden'>
+      <body className={`overflow-x-hidden ${logoFont.variable}`}>
         <SplashCursor />
 
         {children}
