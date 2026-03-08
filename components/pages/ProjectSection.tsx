@@ -74,8 +74,7 @@ const ProjectSection = ({ projectFilter, setProjectFilter, filteredProjects, set
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4">Project Saya</h2>
-          <div className="w-20 h-1 bg-black mx-auto mb-8"></div>
+          <h2 className="text-3xl sm:text-4xl font-body text-black mb-12">Project Saya</h2>
 
           {/* Project Filter */}
           <div className="flex flex-wrap justify-center gap-2 mb-8">

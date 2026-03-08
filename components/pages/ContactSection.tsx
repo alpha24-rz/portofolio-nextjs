@@ -22,8 +22,7 @@ const ContactSection = ({ scrollToSection }: ContactSectionProps) => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4">Hubungi Saya</h2>
-            <div className="w-20 h-1 bg-black mx-auto"></div>
+            <h2 className="text-3xl sm:text-4xl font-body text-black mb-4">Hubungi Saya</h2>
           </ClientMotion>
 
           <div className="grid lg:grid-cols-2 gap-12">

@@ -11,8 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
-// Interface langsung di file ini jika import error
-// app/page.tsx (bagian atas file)
+
 interface Project {
   _id: string;
   id: string;
@@ -28,7 +27,7 @@ interface Project {
 }
 
 // const Particles = dynamic(() => import("@/components/background/Particles/Particles"), { ssr: false })
-const Navbar = dynamic(() => import("@/components/pages/Navbar"), { ssr: false })
+const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false })
 const Hero = dynamic(() => import("@/components/pages/Hero"), { ssr: false })
 const AboutSection = dynamic(() => import("@/components/pages/AboutSection"), { ssr: false })
 const ProjectSection = dynamic(() => import("@/components/pages/ProjectSection"), { ssr: false })

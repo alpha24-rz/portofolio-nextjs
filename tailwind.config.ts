@@ -12,6 +12,7 @@ const config: Config = {
     extend: {
        fontFamily: {
         logo: ['var(--font-logo)'],
+        body: ['var(--font-body)'],
       },
       colors: {
         background: 'hsl(var(--background))',

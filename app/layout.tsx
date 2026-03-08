@@ -13,6 +13,16 @@ export const logoFont = localFont({
   variable: '--font-logo',
 })
 
+export const bodyFont = localFont({
+  src: [
+    {
+      path: './fonts/Gondens DEMO.otf',
+      weight: '900',
+    },
+  ],
+  variable: '--font-body',
+})
+
 
 export const metadata: Metadata = {
   title: 'Portofolio Web Alpharz | Desain & Pengembangan Kreatif',
@@ -78,7 +88,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className={`overflow-x-hidden ${logoFont.variable}`}>
+      <body className={`overflow-x-hidden ${logoFont.variable} ${bodyFont.variable}`}>
         <SplashCursor />
 
         {children}
