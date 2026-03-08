@@ -1,6 +1,6 @@
 import { Button } from "../ui/button"
 import { Linkedin, Github, Mail } from "lucide-react"
-import Particles from "@/components/background/Particles/Particles"
+
 
 interface FooterProps {
     scrollToSection: (section: string) => void;
@@ -9,18 +9,7 @@ interface FooterProps {
 const Footer = ({ scrollToSection }: FooterProps) => {
     return (
         <footer className="relative bg-black text-white py-12 px-4 sm:px-6 lg:px-8 w-screen overflow-hidden">
-            {/* Particles Background */}
-            <Particles
-                particleColors={['#ffffff', '#ffffff']}
-                particleCount={700}
-                particleSpread={10}
-                speed={0.1}
-                particleBaseSize={100}
-                moveParticlesOnHover={true}
-                alphaParticles={false}
-                disableRotation={false}
-                className="absolute w-screen h-screen overflow-hidden z-0" // Ensure particles are at the bottom
-            />
+
 
             <div className="max-w-6xl mx-auto z-10 relative"> {/* Content above particles */}
                 <div className="grid md:grid-cols-3 gap-8">

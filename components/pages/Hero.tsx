@@ -1,6 +1,7 @@
 "use client"
 import ScrollVelocity from "../ScrollVelocity";
 import Image from "next/image";
+import LightRays from '@/components/LightRays'
 
 interface HeroProps {
     scrollToSection: (section: string) => void;
@@ -12,6 +13,7 @@ const Hero = ({ scrollToSection }: HeroProps) => {
             id="home"
             className="relative w-full h-screen flex flex-col items-center justify-between py-10"
         >
+            
             {/* Konten utama di tengah */}
             <div className="flex-1 flex flex-col items-center justify-center">
                 {/* Container untuk text PORTOFOLIO dan gambar */}
