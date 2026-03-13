@@ -16,7 +16,7 @@ const About = () => {
                     handle="Alpha Rizi"
                     status="Online"
                     contactText="Contact"
-                    avatarUrl="/profile.jpg"
+                    avatarUrl="/card.png"
                     iconUrl="/iconpattern.png"
                     grainUrl="/grain.webp"
                     showUserInfo={true}

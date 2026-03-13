@@ -1,7 +1,6 @@
 "use client"
 import ScrollVelocity from "../ScrollVelocity";
 import Image from "next/image";
-import LightRays from '@/components/LightRays'
 
 interface HeroProps {
     scrollToSection: (section: string) => void;
