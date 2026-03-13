@@ -9,6 +9,27 @@ body {
   scroll-margin-bottom: hidden;
 }
 
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #ffff;
+}
+
+/* Handle (scroll yang bergerak) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #9333ea);
+  border-radius: 10px;
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2563eb, #7e22ce);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
