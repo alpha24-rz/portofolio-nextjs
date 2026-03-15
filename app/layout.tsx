@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import SplashCursor from '@/components/SplashCursor'
 import './globals.css'
 import localFont from 'next/font/local'
-import Intro from "@/components/Intro"
+
 
 
 export const logoFont = localFont({
@@ -84,12 +84,14 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
+  
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
     <html lang="id">
+
       <body className={`overflow-x-hidden ${logoFont.variable} ${bodyFont.variable}`}>
         <SplashCursor />
  

@@ -206,7 +206,7 @@ export default function Portfolio() {
         <Hero scrollToSection={scrollToSection} />
 
         {/* About Section */}
-        <AboutSection scrollToSection={scrollToSection} />
+        <AboutSection />
 
         {/* Project Section */}
         <ProjectSection
@@ -214,9 +214,7 @@ export default function Portfolio() {
           setProjectFilter={setProjectFilter}
           filteredProjects={filteredProjects}
           setSelectedProject={setSelectedProject}
-          loading={loading}
-          error={error}
-        />
+          />
 
         {/* Blog Section */}
         <BlogSection />
