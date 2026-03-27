@@ -45,7 +45,7 @@ const Hero = ({ scrollToSection }: HeroProps) => {
 
                         <div className="absolute -bottom-1 rotate-2 w-full flex justify-center items-center bg-black">
                             <ScrollVelocity
-                                texts={['Web Developer', 'Creative Coder']}
+                                texts={['Software Engineer', 'Creative Coder']}
                                 velocity={80}
                                 className="
                             custom-scroll-text

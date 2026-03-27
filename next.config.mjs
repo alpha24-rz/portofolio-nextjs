@@ -7,6 +7,13 @@ const nextConfig = {
   // optimization and serve modern formats where supported.
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**', // atau lebih spesifik misalnya '/dso07is8k/**'
+      },]
   },
   reactStrictMode: true,
 }

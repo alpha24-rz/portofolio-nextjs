@@ -1,43 +1,27 @@
-// BUAT FILE: /app/api/debug/projects/route.ts
-import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
-
-const uri = process.env.MONGODB_URI || '';
+import { NextResponse } from 'next/server'
+import { supabase } from '@/lib/db/supabase'
 
 export async function GET() {
-  let client: MongoClient | null = null;
-  
   try {
-    client = new MongoClient(uri);
-    await client.connect();
-    
-    const db = client.db('portfolio_db');
-    const collection = db.collection('projects');
-    
-    // Get all projects with their IDs
-    const projects = await collection.find({}).toArray();
-    
-    const projectsWithUrls = projects.map(project => ({
-      id: project._id.toString(),
+    const { data, error } = await supabase
+      .from('projects')
+      .select('id,title,category')
+
+    if (error) {
+      console.error('Supabase debug GET projects error:', error)
+      return NextResponse.json({ error: 'Database error', message: error.message }, { status: 500 })
+    }
+
+    const projects = (data ?? []).map((project: any) => ({
+      id: project.id,
       title: project.title,
       category: project.category,
-      editUrl: `/admin/projects/edit/${project._id.toString()}`,
-      apiUrl: `/api/projects/${project._id.toString()}`
-    }));
-    
-    return NextResponse.json({
-      total: projects.length,
-      projects: projectsWithUrls
-    });
-    
+      editUrl: `/admin/projects/edit/${project.id}`,
+      apiUrl: `/api/projects/${project.id}`,
+    }))
+
+    return NextResponse.json({ total: projects.length, projects })
   } catch (error) {
-    return NextResponse.json({
-      error: 'Database error',
-      message: error instanceof Error ? error.message : 'Unknown'
-    }, { status: 500 });
-  } finally {
-    if (client) {
-      await client.close();
-    }
+    return NextResponse.json({ error: 'Database error', message: error instanceof Error ? error.message : 'Unknown' }, { status: 500 })
   }
 }

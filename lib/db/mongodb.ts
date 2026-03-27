@@ -6,7 +6,11 @@ if (!process.env.MONGODB_URI) {
 }
 
 const uri = process.env.MONGODB_URI
-const options = {}
+const options = {
+  family: 4, // <-- Kunci utamanya ada di sini!
+  connectTimeoutMS: 30000,
+  serverSelectionTimeoutMS: 30000,
+};
 
 let client: MongoClient
 let clientPromise: Promise<MongoClient>

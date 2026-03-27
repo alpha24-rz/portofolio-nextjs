@@ -19,7 +19,6 @@ import {
 import { Input } from '@/components/ui/input'
 
 interface Project {
-  _id: string
   id: string
   title: string
   category: string
@@ -304,7 +303,7 @@ export default function AdminProjects() {
                   </thead>
                   <tbody>
                     {filteredProjects.map((project) => (
-                      <tr key={project._id} className="border-b hover:bg-gray-50 transition-colors">
+                      <tr key={project.id} className="border-b hover:bg-gray-50 transition-colors">
                         <td className="py-4 px-4">
                           <div>
                             <p className="font-medium text-gray-900">{project.title}</p>
@@ -351,7 +350,7 @@ export default function AdminProjects() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => router.push(`/admin/projects/edit/${project._id}`)}
+                              onClick={() => router.push(`/admin/projects/edit/${project.id}`)}
                               className="border-gray-300 text-gray-700 hover:bg-gray-50"
                             >
                               <Edit className="h-3 w-3 mr-1" />
@@ -360,7 +359,7 @@ export default function AdminProjects() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => window.open(`/api/projects/${project._id}`, '_blank')}
+                              onClick={() => window.open(`/api/projects/${project.id}`, '_blank')}
                               className="border-gray-300 text-gray-700 hover:bg-gray-50"
                               title="View API Data"
                             >
@@ -369,7 +368,7 @@ export default function AdminProjects() {
                             <Button
                               size="sm"
                               variant="destructive"
-                              onClick={() => handleDelete(project._id)}
+                              onClick={() => handleDelete(project.id)}
                               className="bg-red-600 hover:bg-red-700"
                             >
                               <Trash2 className="h-3 w-3 mr-1" />

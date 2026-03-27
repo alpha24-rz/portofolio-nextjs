@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import Intro from "@/components/Intro"
+import { useRouter } from "next/navigation"
 
 interface Project {
-  _id: string
   id: string
+  _id?: string
   title: string
   category: "frontend" | "ui-ux" | "backend" | "fullstack"
   description: string
@@ -35,7 +36,6 @@ const Footer = dynamic(() => import("@/components/pages/Footer"), { ssr: false }
 // Fallback projects data
 const fallbackProjects: Project[] = [
   {
-    _id: "1",
     id: "1",
     title: "Platform Ecosystem 4.0",
     category: "frontend",
@@ -47,7 +47,6 @@ const fallbackProjects: Project[] = [
     details: "An innovative platform integrating blockchain to provide incentives in the form of NFTs to contributors involved in environmental and social sustainability activities."
   },
   {
-    _id: "2",
     id: "2",
     title: "IoT-Based Smart Library System with RFID",
     category: "frontend",
@@ -59,7 +58,6 @@ const fallbackProjects: Project[] = [
     details: "Web application integrated with RFID for book borrowing, real-time data tracking, and notifications via OLED and buzzer."
   },
   {
-    _id: "3",
     id: "3",
     title: "Mobile App UI Design",
     category: "ui-ux",
@@ -71,7 +69,6 @@ const fallbackProjects: Project[] = [
     details: "Complete design for a news mobile app with an optimal user flow and user-friendly interface."
   },
   {
-    _id: "4",
     id: "4",
     title: "Portfolio Website",
     category: "frontend",
@@ -83,7 +80,6 @@ const fallbackProjects: Project[] = [
     details: "Portfolio website with glassmorphism design and smooth animations to showcase work."
   },
   {
-    _id: "5",
     id: "5",
     title: "Sahabat Moms Web Platform UI Design",
     category: "ui-ux",
@@ -105,6 +101,7 @@ export default function Portfolio() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showIntro, setShowIntro] = useState(true)
+  const router = useRouter()
 
   // Handle scroll to update active section
   useEffect(() => {
@@ -145,7 +142,6 @@ export default function Portfolio() {
         const data = await response.json()
         const formattedProjects = data.map((project: any) => ({
           ...project,
-          id: project.id || project._id,
           image: project.image || '/placeholder.svg'
         }))
         setProjects(formattedProjects)
@@ -213,8 +209,8 @@ export default function Portfolio() {
           projectFilter={projectFilter}
           setProjectFilter={setProjectFilter}
           filteredProjects={filteredProjects}
-          setSelectedProject={setSelectedProject}
-          />
+          setSelectedProject={(project) => router.push(`/project/${project.id}`)}
+        />
 
         {/* Blog Section */}
         <BlogSection />
@@ -225,50 +221,83 @@ export default function Portfolio() {
         {/* Footer */}
         <Footer scrollToSection={scrollToSection} />
 
-        {/* Project Modal */}
+        {/* Project Modal - Enhanced Version */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-2xl bg-white/90 backdrop-blur-md border border-black/10">
+          <DialogContent className="max-w-2xl max-h-2xl p-0 overflow-hidden bg-background border border-border rounded-2xl shadow-xl">
             {selectedProject && (
-              <>
-                <DialogHeader>
-                  <DialogTitle className="text-black">{selectedProject.title}</DialogTitle>
-                  <DialogDescription className="text-gray-700">{selectedProject.description}</DialogDescription>
-                </DialogHeader>
-                <div className="space-y-4">
+              <div>
+                {/* Image */}
+                <div className="relative bg-muted h-56 flex items-center justify-center border-b border-border">
                   <Image
                     src={selectedProject.image || "/placeholder.svg"}
                     alt={selectedProject.title}
-                    width={500}
-                    height={300}
-                    className="w-full h-64 object-cover rounded-lg"
+                    width={800}
+                    height={400}
+                    className="w-full h-full object-cover"
                   />
-                  <p className="text-gray-700">{selectedProject.details}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.tech.map((tech: string) => (
-                      <Badge key={tech} variant="outline" className="border-black/20">
-                        {tech}
-                      </Badge>
-                    ))}
+                  <div className="absolute top-3 right-3">
+                    <span className="bg-background/90 backdrop-blur-sm border border-border rounded-full px-3 py-1 text-xs text-muted-foreground">
+                      {selectedProject.category}
+                    </span>
                   </div>
-                  <div className="flex gap-4">
+                </div>
+
+                {/* Content */}
+                <div className="p-6 space-y-5">
+
+                  {/* Title & Description */}
+                  <div>
+                    <DialogTitle className="text-xl font-medium text-foreground mb-1.5">
+                      {selectedProject.title}
+                    </DialogTitle>
+                    <DialogDescription className="text-sm text-muted-foreground leading-relaxed">
+                      {selectedProject.description}
+                    </DialogDescription>
+                  </div>
+
+                  {/* Details */}
+                  <div className="bg-muted/50 border border-border rounded-lg px-4 py-3 text-sm text-muted-foreground leading-relaxed">
+                    {selectedProject.details}
+                  </div>
+
+                  {/* Tech Stack */}
+                  <div>
+                    <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground mb-2">
+                      Technologies
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {selectedProject.tech.map((tech: string) => (
+                        <span
+                          key={tech}
+                          className="bg-muted border border-border rounded-full px-3 py-1 text-xs text-foreground"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="flex gap-3 pt-1 border-t border-border">
                     <Button
-                      className="flex-1 bg-black hover:bg-gray-800 text-white hover:scale-105 transition-all duration-500 ease-in-out"
+                      className="flex-1 gap-2"
                       onClick={() => window.open(selectedProject.github, '_blank')}
                     >
-                      <Github className="mr-2 h-4 w-4" />
+                      <Github className="h-3.5 w-3.5" />
                       View Code
                     </Button>
                     <Button
                       variant="outline"
-                      className="flex-1 bg-white/80 backdrop-blur-sm text-black border-black/20 hover:bg-black hover:text-white hover:scale-105 transition-all duration-500 ease-out ease-in-out"
+                      className="flex-1 gap-2"
                       onClick={() => window.open(selectedProject.demo, '_blank')}
                     >
-                      <ExternalLink className="mr-2 h-4 w-4" />
+                      <ExternalLink className="h-3.5 w-3.5" />
                       Live Demo
                     </Button>
                   </div>
+
                 </div>
-              </>
+              </div>
             )}
           </DialogContent>
         </Dialog>

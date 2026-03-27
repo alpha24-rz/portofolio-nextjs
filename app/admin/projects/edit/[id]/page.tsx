@@ -40,9 +40,9 @@ interface ProjectData {
   order: number
 }
 
-// Fungsi untuk validasi MongoDB ObjectId
-function isValidObjectId(id: string): boolean {
-  return /^[0-9a-fA-F]{24}$/.test(id);
+// Fungsi validasi UUID (Supabase)
+function isValidProjectId(id: string): boolean {
+  return /^[0-9a-fA-F-]{36}$/.test(id)
 }
 
 // Komponen utama yang menggunakan Suspense
@@ -96,8 +96,8 @@ function EditProjectContent() {
         throw new Error('Invalid project ID')
       }
       
-      if (!isValidObjectId(id)) {
-        throw new Error(`Invalid project ID format: "${id}". Must be a 24-character hex string.`)
+      if (!isValidProjectId(id)) {
+        throw new Error(`Invalid project ID format: "${id}". Must be a UUID-like string.`)
       }
       
       const apiUrl = `/api/projects/${id}`

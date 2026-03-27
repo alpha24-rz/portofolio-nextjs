@@ -1,57 +1,45 @@
 // app/api/projects/[id]/route.ts (public API)
-import { NextResponse } from 'next/server';
-import { MongoClient, ObjectId } from 'mongodb';
-
-const uri = process.env.MONGODB_URI || '';
-
-async function connectToDatabase() {
-  const client = new MongoClient(uri);
-  await client.connect();
-  return client;
-}
+import { NextResponse } from 'next/server'
+import { supabase } from '@/lib/db/supabase'
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
-    
-    if (!id || !ObjectId.isValid(id)) {
-      return NextResponse.json({ 
-        error: 'Invalid project ID' 
-      }, { status: 400 });
+    const { id } = await params
+
+    if (!id || typeof id !== 'string' || id.trim().length === 0) {
+      return NextResponse.json({ error: 'Invalid project ID' }, { status: 400 })
     }
 
-    const client = await connectToDatabase();
-    const db = client.db('portfolio_db');
-    const collection = db.collection('projects');
+    const { data: project, error } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('id', id)
+      .single()
 
-    const project = await collection.findOne({ 
-      _id: new ObjectId(id) 
-    });
-
-    await client.close();
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return NextResponse.json({ error: 'Project not found' }, { status: 404 })
+      }
+      console.error('Supabase GET project error:', error)
+      return NextResponse.json({ error: 'Failed to fetch project', details: error.message }, { status: 500 })
+    }
 
     if (!project) {
-      return NextResponse.json({ 
-        error: 'Project not found' 
-      }, { status: 404 });
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 })
     }
 
-    // Remove sensitive/optional fields for public API
-    const { _id, ...rest } = project;
-    const responseData = {
-      ...rest,
-      id: _id.toString()
-    };
+    const mappedProject = {
+      ...project,
+      createdAt: project.created_at,
+      updatedAt: project.updated_at,
+    }
 
-    return NextResponse.json(responseData);
-    
+    return NextResponse.json(mappedProject)
   } catch (error) {
-    console.error('Error fetching project:', error);
-    return NextResponse.json({ 
-      error: 'Failed to fetch project' 
-    }, { status: 500 });
+    console.error('Error fetching project:', error)
+    return NextResponse.json({ error: 'Failed to fetch project' }, { status: 500 })
   }
 }

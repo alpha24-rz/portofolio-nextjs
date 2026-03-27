@@ -1,6 +1,6 @@
 // models/Project.ts
 export interface IProject {
-    id: number
+    id: string
     title: string
     category: 'frontend' | 'ui-ux' | 'backend' | 'fullstack'
     description: string
@@ -9,8 +9,8 @@ export interface IProject {
     github: string
     demo: string
     details: string
-    createdAt: Date
-    updatedAt: Date
+    createdAt: string
+    updatedAt: string
     featured?: boolean
     order?: number
   }
