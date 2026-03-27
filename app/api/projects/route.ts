@@ -1,87 +1,104 @@
-import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/db/supabase'
+// app/api/projects/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { supabaseServer } from '@/lib/db/supabase'
 
-export async function GET() {
+// GET /api/projects - Get all projects (untuk listing)
+export async function GET(request: NextRequest) {
   try {
-    const { data, error } = await supabase
+    // Ambil query parameters untuk filtering
+    const { searchParams } = new URL(request.url)
+    const mode = searchParams.get('mode') // 'minimal' atau undefined
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined
+    const featured = searchParams.get('featured') === 'true'
+
+    // Build query
+    let query = supabaseServer
       .from('projects')
-      .select('*')
+      .select(mode === 'minimal' ? 'id, title, slug, category, image' : '*')
+      .order('order', { ascending: true })
       .order('created_at', { ascending: false })
 
-    if (error) {
-      console.error('Supabase GET projects error:', error)
-      return NextResponse.json({ error: 'Failed to fetch projects', details: error.message }, { status: 500 })
+    if (featured) {
+      query = query.eq('featured', true)
     }
 
-    const projects = (data ?? []).map((project: any) => ({
-      ...project,
-      createdAt: project.created_at,
-      updatedAt: project.updated_at,
-    }))
+    if (limit) {
+      query = query.limit(limit)
+    }
 
-    return NextResponse.json(projects)
+    const { data, error } = await query
+
+    if (error) {
+      console.error('[API Error] GET /api/projects:', error.message)
+      return NextResponse.json(
+        { error: 'Failed to fetch projects' },
+        { status: 500 }
+      )
+    }
+
+    // Cache headers
+    const headers = new Headers()
+    headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+
+    return NextResponse.json(data || [], { headers })
   } catch (error) {
-    console.error('Database connection error:', error)
+    console.error('[API Error] GET /api/projects:', error)
     return NextResponse.json(
-      {
-        error: 'Failed to fetch projects from database',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
 }
 
-export async function POST(request: Request) {
-  try {
-    const data = await request.json()
+// POST /api/projects - Create new project (admin only)
+export async function POST(request: NextRequest) {
+  // Auth check - sesuaikan dengan sistem auth Anda
+  const authHeader = request.headers.get('authorization')
+  const adminToken = process.env.ADMIN_API_TOKEN
+  
+  if (adminToken && authHeader !== `Bearer ${adminToken}`) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
-    if (!data.title || !data.description || !data.category) {
+  try {
+    const body = await request.json()
+
+    // Validasi required fields
+    if (!body.title || !body.category || !body.description) {
       return NextResponse.json(
-        { error: 'Title, description, and category are required' },
+        { error: 'Missing required fields: title, category, description' },
         { status: 400 }
       )
     }
 
     const projectData = {
-      ...data,
-      tech: Array.isArray(data.tech)
-        ? data.tech
-        : typeof data.tech === 'string'
-        ? data.tech.split(',').map((t: string) => t.trim())
-        : [],
+      ...body,
+      tech: Array.isArray(body.tech) ? body.tech : 
+            typeof body.tech === 'string' ? body.tech.split(',').map((t: string) => t.trim()) : [],
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-      featured: Boolean(data.featured),
-      order: Number(data.order) || 0,
     }
 
-    const { data: insertedProject, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('projects')
       .insert(projectData)
+      .select()
       .single()
 
     if (error) {
-      console.error('Supabase POST create project error:', error)
-      return NextResponse.json({ error: 'Failed to create project', details: error.message }, { status: 500 })
+      console.error('[API Error] POST /api/projects:', error.message)
+      return NextResponse.json(
+        { error: 'Failed to create project' },
+        { status: 500 }
+      )
     }
 
-    const mappedProject = {
-      ...insertedProject,
-      createdAt: insertedProject.created_at,
-      updatedAt: insertedProject.updated_at,
-    }
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: 'Project created successfully',
-        project: mappedProject,
-      },
-      { status: 201 }
-    )
+    return NextResponse.json(data, { status: 201 })
   } catch (error) {
-    console.error('Create project error:', error)
-    return NextResponse.json({ error: 'Failed to create project' }, { status: 500 })
+    console.error('[API Error] POST /api/projects:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
   }
 }
