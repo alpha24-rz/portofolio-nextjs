@@ -12,7 +12,7 @@ const About = () => {
             <div className="flex relative justify-center items-center  md:col-span-2 lg:col-span-2 lg:row-span-5">
                 <ProfileCard
                     name="M Alpha.Rizi"
-                    title="Web Developer"
+                    title="Software Engineer"
                     handle="Alpha Rizi"
                     status="Online"
                     contactText="Contact"
@@ -26,10 +26,10 @@ const About = () => {
             </div>
             <div className="col-span-1 md:col-span-2 lg:col-span-3 lg:row-span-3 lg:col-start-3">
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                    Saya adalah seorang UI/UX Designer sekaligus Web Developer yang antusias dalam menciptakan antarmuka digital yang fungsional dan estetis. Dengan dasar pengalaman di pengembangan web dan desain pengalaman pengguna, saya berfokus pada bagaimana teknologi dapat memberikan pengalaman yang intuitif dan bermakna.
+                    Software Engineer with a background in UI/UX Design and Web Development. Experienced in building digital interfaces that are both functional and aesthetically compelling, with a strong focus on creating intuitive and meaningful user experiences. I bridge the gap between development and design to deliver human-centered technology solutions.
                 </p>
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                    Saya terus mengembangkan kemampuan saya di berbagai aspek teknologi, terutama dalam memahami tren baru seperti Artificial Intelligence (AI). Bagi saya, proses belajar adalah bagian tak terpisahkan dari perjalanan berkarya, dan saya selalu terbuka untuk eksplorasi hal-hal baru yang dapat memperkaya solusi digital yang saya bangun.
+                    I continuously expand my expertise across various areas of technology, with a growing interest in emerging trends such as Artificial Intelligence (AI). For me, learning is an essential part of the creative journey—I’m always open to exploring new possibilities that enrich the digital solutions I build.
                 </p>
             </div>
             <div className="col-span-1 md:col-span-2 lg:col-span-3 lg:row-span-2 lg:col-start-3 lg:row-start-4">

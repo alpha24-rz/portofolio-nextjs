@@ -18,18 +18,27 @@ const Hero = ({ scrollToSection }: HeroProps) => {
                 {/* Container text + image */}
                 <div className="w-full relative flex inset-0 items-center justify-center">
 
-                    {/* TEXT PORTOFOLIO */}
                     <span className="
                         font-body leading-none
                         text-[4rem] 
                         sm:text-[5rem] 
                         md:text-[8rem] 
                         lg:text-[13rem]
+                        relative
+                        inline-block
+                        transition-all duration-300
+                        hover:scale-105
+                        cursor-default
+                        z-0 
+                        pointer-events-auto
                     ">
-                        PORTOFOLIO
+                        PORTOFOLI
+                        <span className="text-[#FF7F11] inline-block transition-all duration-300 hover:scale-110 hover:drop-shadow-glow">
+                            O
+                        </span>
                     </span>
 
-                    <div className="flex w-full absolute items-center justify-center">
+                    <div className="flex w-full absolute items-center justify-center z-10">
                         {/* IMAGE */}
                         <div className="flex items-center justify-center">
                             <Image
@@ -45,7 +54,7 @@ const Hero = ({ scrollToSection }: HeroProps) => {
 
                         <div className="absolute -bottom-1 rotate-2 w-full flex justify-center items-center bg-black">
                             <ScrollVelocity
-                                texts={['Software Engineer', 'Creative Coder']}
+                                texts={['Software Engineer ⚡', 'Creative Coder ⚡']}
                                 velocity={80}
                                 className="
                             custom-scroll-text
